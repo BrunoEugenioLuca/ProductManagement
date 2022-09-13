@@ -1,0 +1,38 @@
+﻿@*@layout MainLayout*@
+@page "/"
+
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<body>
+<div style="text-align:center">
+    <h3><strong>Benvenuti nel servizo di gestione dei Prodotti</strong></h3>
+    <h7><strong>Per accedere alle funzionalità messe a disposizione dal servzio è necessario autenticarsi</strong></h7>
+</div>
+<br />
+<br />
+
+<MudGrid Style="justify-content: center !important">
+    <MudItem  sm="4" >
+
+       
+            <MudForm Model="User">
+                    <MudTextField @bind-Value="User.Username" Label="Username" ReadOnly="false" Variant="Variant.Outlined" />
+                        <br />
+                    <MudTextField @bind-Value="User.Password" Label="Password" ReadOnly="false" InputType="InputType.Password" Variant="Variant.Outlined"/>
+                        <br />
+            </MudForm>   
+       
+            <br />
+        
+    </MudItem>
+</MudGrid>
+
+ <div style="margin-top:30px; text-align:center">
+     <MudButton ButtonType="ButtonType.Submit" @onclick="SingIn" Variant="Variant.Filled" Size="Size.Medium" Color="Color.Success">Accedi</MudButton>
+    
+</div>
+</body>
+@code {
+
+}

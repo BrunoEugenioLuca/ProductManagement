@@ -1,0 +1,58 @@
+﻿@inject ISnackbar Snackbar
+
+@*<MudDialog style="color:red">
+    <TitleContent>
+        <MudText Typo="Typo.h6" style="padding-top:20px">
+            <MudIcon Icon="@Icons.Material.Filled.DeleteForever" Size="Size.Medium"/>
+                Delete Product     
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <dicv style="color:black">
+            <h6>Sei sicuro di voler eliminare questo prodotto? </h6>
+            <br />
+            <p><strong>Product Id: </strong> @Product.Id</p>
+            <p><strong>Product Name: </strong> @Product.ProductName</p>
+            <p><strong>Price: </strong> @decimal.Round(Product.Price)</p>
+        </dicv> 
+    </DialogContent>
+    <DialogActions>
+        <MudButton @onclick="Cancel" Size="Size.Small" Variant="Variant.Outlined">Cancell</MudButton>
+        <MudButton @onclick="DeleteProduct" Variant="Variant.Filled" Size="Size.Small" Color="Color.Error">Delete</MudButton>
+    </DialogActions>
+</MudDialog>*@
+
+<MudDialog>
+    <TitleContent >
+       
+        <MudText Typo="Typo.h5">
+            @*<MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-1 mb-n1" Size="Size.Large" Title="Delete Product"/>*@
+            
+            <MudItem md="12">
+                <MudIcon Color="Color.Error" Icon="@Icons.Material.Filled.DeleteForever" Style="margin-bottom:5px" Size="Size.Large" />
+                    <strong>Delete Product</strong>
+            </MudItem> 
+            
+        </MudText>
+       
+    </TitleContent>
+    <DialogContent>
+        <div style="color:blacK; margin-bottom: 20px;">
+            <h6><strong>Sei sicuro di voler eliminare queto prodotto?</strong></h6>
+        </div>
+        <MudTextField Value="@Product.Id" Label="Product ID" ReadOnly="true"/>
+        <MudTextField Value="@Product.ProductName" Label="Product Name" ReadOnly="true"/>
+        <MudNumericField Value="@decimal.Round(Product.Price,2)" Label="Prce" ReadOnly="true"/>
+    </DialogContent>
+    <DialogActions>
+        <div style="padding-top:20px">
+             <MudButton @onclick="Exit" Size="Size.Small" Variant="Variant.Outlined">Cancell</MudButton>
+            <MudButton @onclick="DeleteProduct" Variant="Variant.Filled" Size="Size.Small" Color="Color.Error">Delete</MudButton>
+        </div>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+
+}

@@ -1,0 +1,54 @@
+﻿@using ProductManagement.Models
+
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<div>
+    <div>
+
+        <MudDialog>
+            <TitleContent >
+       
+                <MudText Typo="Typo.h5">
+                    @*<MudIcon Icon="@Icons.Material.Filled.DeleteForever" Class="mr-1 mb-n1" Size="Size.Large" Title="Delete Product"/>*@
+            
+                    <MudItem md="12">
+                        <MudIcon Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Style="margin-bottom:5px" Size="Size.Large" />
+                            <strong>Update Product</strong>
+                    </MudItem>
+                </MudText>
+       
+            </TitleContent>
+            
+            <DialogContent>
+                <MudContainer Style="max-height: 350px; overflow-y: scroll">
+                 <EditForm Model="Product">
+                 <DataAnnotationsValidator />
+                
+                
+                    @if(Product != null)
+                    {
+                       <MudTextField @bind-Value="Product.Id" Label="Id Product" ReadOnly="true" Variant="Variant.Outlined" />
+                       <br />
+                       <MudTextField For="@(() => Product.ProductName)" @bind-Value="Product.ProductName" Label="Product Name" ReadOnly="false" Variant="Variant.Outlined" />
+                       <br />
+                       <MudTextField For="@(() => Product.FullDescription)" @bind-Value="Product.FullDescription" Label="Full Description" ReadOnly="false" Variant="Variant.Outlined" Lines="5"/>
+                       <br />
+                       <MudTextField For="@(() => Product.ShortDescription)" @bind-Value="Product.ShortDescription" Label="Short Description" ReadOnly="false" Variant="Variant.Outlined" Lines="3"/>
+                       <br />
+                       <MudNumericField For="@(() => Product.Price)" @bind-Value="Product.Price" Label="Price" ReadOnly="false" Variant="Variant.Outlined" />
+                       <br />
+                       <MudSwitch @bind-Checked="Product.Published"  Label="Published" Color="Color.Success" UnCheckedColor="Color.Error" />
+                    }
+                </EditForm>
+            </MudContainer>
+            </DialogContent>       
+            <DialogActions>
+                <MudButton OnClick="Cancel" Variant="Variant.Filled" Size="Size.Small" Color="Color.Secondary">Cancell</MudButton>
+                <MudButton ButtonType="ButtonType.Submit" OnClick="UpdateProduct" Variant="Variant.Filled" Size="Size.Small" Color="Color.Success">Save</MudButton>
+   
+            </DialogActions>
+            
+        </MudDialog>
+    </div>
+</div>

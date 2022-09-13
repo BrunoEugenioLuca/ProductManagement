@@ -1,0 +1,41 @@
+﻿@page "/formProduct/{username}"
+@inject IDialogService DialogService
+@inject NavigationManager Navigation
+ 
+
+<div style="text-align: center">
+    <div style="padding=10px;">
+        <h3 style="color:blueviolet"><strong>Create New Product</strong></h3>
+    </div>
+    <br />
+        <MudGrid Style="justify-content: center !important">
+            <MudItem  sm="6" >
+       
+                    <MudForm Model="Product">
+                         <MudTextField For="@(() => Product.ProductName)" @bind-Value="Product.ProductName" Label="Product Name" ReadOnly="false" Variant="Variant.Outlined" />
+                             <br />
+                         <MudTextField For="@(() => Product.FullDescription)" @bind-Value="Product.FullDescription" Label="Full Description" ReadOnly="false" Variant="Variant.Outlined" Lines="5"/>
+                             <br />
+                         <MudTextField For="@(() => Product.ShortDescription)" @bind-Value="Product.ShortDescription" Label="Short Description" ReadOnly="false" Variant="Variant.Outlined" Lines="3"/>
+                             <br />
+                         <MudNumericField For="@(() => Product.Price)" @bind-Value="Product.Price" Label="Price" ReadOnly="false" Variant="Variant.Outlined" /> 
+                             <br />
+                        <div style="text-align:right">
+                            <MudSwitch @bind-Checked="Product.Published" Color="Color.Success" UnCheckedColor="Color.Error"><strong>Published</strong></MudSwitch>
+                        </div>
+                        <br />
+                    </MudForm>   
+       
+                    <br />
+                    <MudButton @onclick="Exit" Variant="Variant.Filled" Size="Size.Medium" Color="Color.Secondary">Exit</MudButton>
+                    <MudButton Disabled="!FormValid" ButtonType="ButtonType.Submit" @onclick="SaveProduct" Variant="Variant.Filled" Size="Size.Medium" Color="Color.Success">Save</MudButton>  
+        
+            </MudItem>
+        </MudGrid>
+</div>
+    <DialogSuccess></DialogSuccess>
+
+@code{
+
+  
+}

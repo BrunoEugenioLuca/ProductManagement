@@ -1,0 +1,91 @@
+﻿@page "/products/{username}"
+@using ProductManagement.Models
+
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+
+<PageTitle>Products</PageTitle>
+@if(ListProducts.Count == 0)
+{
+    <div style="text-align:center; margin-top:100px">
+        <h3 style="margin-bottom:50px">Caricamento Dati Attendere Prego ...</h3>
+        <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true"/>
+    </div>
+
+}
+else
+{
+    <h5 style="text-align:right">Benvenuto @Username</h5>
+    <br />
+    <MudTable Items="@ListProducts" Dense="true" Striped="true" A Filter="new Func<ProductDto,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem1">
+        
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Products</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <HeaderContent>
+                <MudTh>Id Product</MudTh>
+                <MudTh>Product Name</MudTh>
+                <MudTh>Full Description</MudTh>
+                <MudTh>Short Descrtiption</MudTh>
+                <MudTh>Price</MudTh>
+                <MudTh>Edit</MudTh>
+                <MudTh>Published</MudTh>
+                @*<MudTh>Delete</MudTh>*@
+        </HeaderContent>
+        <RowTemplate>
+            
+            <MudTd DataLabel="Id">@context.Id</MudTd>
+            <MudTd DataLabel="Name">@context.ProductName</MudTd>
+            <MudTd DataLabel="Full Desc.">@context.FullDescription</MudTd>
+            <MudTd DataLabel="Short Desc.">@context.ShortDescription</MudTd>
+            <MudTd DataLabel="Price">@decimal.Round(context.Price,2)</MudTd>
+            <MudTd DataLabel="Edit">
+                <MudFab DataLabel="Edit" @onclick="@(async (e) => await OpenDialogEdit(context))" Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Edit" />
+            </MudTd>
+            <MudTd DataLabel="Published">
+                <MudSwitch @bind-Checked="@context.Published" @onclick="@(async (e) => await Publishproduct(context))" Color="Color.Success" UnCheckedColor="Color.Error" />
+            </MudTd>
+           @* <MudTd>
+                <MudFab DataLabel="Delete" @onclick="@(async(e) => await OpenDialogDelete(context))" Color="Color.Error" Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" />
+            </MudTd>*@
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+     <div style="margin-top:30px; text-align:center">
+             
+             <MudButton Href="/" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.ExitToApp" Color="Color.Secondary"  Size="Size.Medium">Exit</MudButton>
+             <MudButton @onclick="AddProduct" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add" Color="Color.Primary"  Size="Size.Medium">Add</MudButton>   
+     </div>
+     <br />
+     <DialogEdit></DialogEdit>
+    @* <DialogDelete></DialogDelete>*@
+}
+@code {
+
+    private string searchString1 = "";
+    private ProductDto selectedItem1 = null;
+
+    private bool FilterFunc1(ProductDto product) => FilterFunc(product, searchString1);
+
+    private bool FilterFunc(ProductDto product, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (product.ProductName != null)
+        {
+            if (product.ProductName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            return false;
+        }
+
+        return false;
+    }
+
+}
